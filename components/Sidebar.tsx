@@ -19,6 +19,7 @@ export default function Sidebar() {
     try {
       const res = await fetch("/api/logout", { method: "POST" });
       if (res.ok) {
+        alert("user logged out");
         router.push("/login");
       } else {
         alert("Logout failed");

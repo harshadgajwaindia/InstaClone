@@ -45,11 +45,13 @@ export default function HomePosts() {
           : posts.map((post) => (
               <div key={post.id} className="p-3">
                 <div className="flex items-center gap-2 mb-2">
+                  <div className="w-12 h-12">
                   <img
                     src={post.user.profilePic || "/default-avatar.png"}
-                    className="w-8 h-8 rounded-full"
+                    className="rounded-full w-12 h-12 object-cover"
                     alt="avatar"
                   />
+                  </div>
                   <p className="font-semibold">
                     {post.user?.name || "Unknown"}
                   </p>
