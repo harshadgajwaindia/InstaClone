@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default async function SinglePostPage(props: Props) {
-  const { postId } = await props.params;
+  const { postId } = props.params;
   const post = await prisma.post.findUnique({
     where: { id: postId },
   });
