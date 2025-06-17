@@ -42,10 +42,10 @@ export async function POST(
 }
 
 
-export async function GET(req: Request, {params} : {params : {postId : string}})
+export async function GET(req: Request, context : {params : Promise<{postId : string}>})
 {
-  const param = await params
-  const ID = param.postId
+  
+  const ID = (await context.params).postId
     try {
         const comments = await prisma.comment.findMany({
             where: {postId: ID},
