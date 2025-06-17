@@ -20,6 +20,7 @@ export default function LikeButton({
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
+      setLoading(true);
       try {
         const res = await fetch(`/api/posts/${postId}/like`, {
           method: "GET",
@@ -33,6 +34,8 @@ export default function LikeButton({
         }
       } catch (error) {
         console.error("Failed to fetch like status:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
