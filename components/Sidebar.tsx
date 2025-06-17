@@ -32,7 +32,7 @@ export default function Sidebar() {
   return (
     <>
       <nav
-        className=" fixed bg-black shadow-sm z-50
+        className=" fixed bg-neutral-900 border-t border-gray-800 shadow-sm z-50
         bottom-0 w-full flex justify-around items-center h-14
         md:top-0 md:left-0 md:w-60 md:h-full md:flex-col md:justify-start md:gap-6"
       >

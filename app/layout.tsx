@@ -17,7 +17,7 @@ return(
   <html lang = "en">
     <body className="grid grid-cols-[auto_1fr_auto] min-h-screen bg-gray-50">
       {!hideSidebar && <Sidebar />}
-      <main className="col-start-2">{children}</main>
+      <main className="col-start-2 bg-neutral-900">{children}</main>
       
     </body>
   </html>

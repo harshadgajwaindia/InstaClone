@@ -3,14 +3,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-// Skeleton for loading comments
 function CommentSkeleton() {
   return (
     <div className="flex items-start space-x-3 animate-pulse mb-3">
-      <div className="h-8 w-8 rounded-full bg-gray-300"></div>
+      <div className="h-8 w-8 rounded-full bg-neutral-700"></div>
       <div className="flex flex-col space-y-2">
-        <div className="h-4 w-24 bg-gray-300 rounded"></div>
-        <div className="h-4 w-48 bg-gray-300 rounded"></div>
+        <div className="h-4 w-24 bg-neutral-700 rounded"></div>
+        <div className="h-4 w-48 bg-neutral-700 rounded"></div>
       </div>
     </div>
   );
@@ -21,6 +20,7 @@ export default function CommentSection({ postId }: { postId: string }) {
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -45,7 +45,6 @@ export default function CommentSection({ postId }: { postId: string }) {
     if (!newComment.trim()) return;
 
     setLoading(true);
-
     try {
       const res = await fetch(`/api/posts/${postId}/comment`, {
         method: "POST",
@@ -60,6 +59,7 @@ export default function CommentSection({ postId }: { postId: string }) {
         const comment = await res.json();
         setComments([comment, ...comments]);
         setNewComment("");
+        setShowAll(true);
       } else {
         const error = await res.json();
         alert(error.message);
@@ -74,21 +74,35 @@ export default function CommentSection({ postId }: { postId: string }) {
   return (
     <div className="w-full px-4 py-2">
       <div className="max-h-64 overflow-y-auto space-y-4">
-        {fetching
-          ? Array(1)
-              .fill(0)
-              .map((_, i) => <CommentSkeleton key={i} />)
-          : comments.map((comment) => (
-              <div key={comment.id} className="flex items-start space-x-3">
-                <div className="flex flex-col">
-                  <span className="text-sm font-semibold">
-                    {comment.user.name}
-                  </span>
-                  <p className="text-sm">{comment.content}</p>
-                </div>
+        {fetching ? (
+          <CommentSkeleton />
+        ) : (
+          (showAll ? comments : comments.slice(0, 1)).map((comment) => (
+            <div key={comment.id} className="flex items-start space-x-3">
+              <img
+                src={comment.user.profilePic || "/default-avatar.png"}
+                alt="avatar"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold text-gray-200">
+                  {comment.user.name}
+                </span>
+                <p className="text-sm text-gray-300">{comment.content}</p>
               </div>
-            ))}
+            </div>
+          ))
+        )}
       </div>
+
+      {!fetching && comments.length > 1 && (
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="text-sm text-blue-400 hover:underline mt-2"
+        >
+          {showAll ? "See less" : "See more comments"}
+        </button>
+      )}
 
       <form
         onSubmit={handleSubmit}
@@ -97,16 +111,16 @@ export default function CommentSection({ postId }: { postId: string }) {
         <input
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          className="flex-1 rounded-full px-4 py-2 text-sm outline-none border border-gray-700"
+          className="flex-1 rounded-full px-4 py-2 text-sm outline-none bg-neutral-900 text-white placeholder-gray-400 border border-neutral-700"
           placeholder="Add a comment..."
           disabled={loading}
         />
         <button
           type="submit"
           disabled={loading || !newComment.trim()}
-          className="text-blue-500 font-semibold text-sm hover:opacity-70"
+          className="text-blue-400 font-semibold text-sm hover:opacity-80"
         >
-          {loading ? "Posting.." : "Post"}
+          {loading ? "Posting..." : "Post"}
         </button>
       </form>
     </div>
