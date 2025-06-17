@@ -42,7 +42,6 @@ export default function Search() {
       {results.length > 0 && (
         <div>
           {results.map((user: User) => (
-            // <Link href={`/profile/${user.id}`} key={user.id}>
             <div
               key={user.id}
               className="flex items-center p-2 hover:bg-gray-900 md:w-150 md:ml-64"
@@ -54,7 +53,6 @@ export default function Search() {
               />
               <span>{user.username}</span>
             </div>
-            //</Link>
           ))}
         </div>
       )}

@@ -44,12 +44,12 @@ export default function ProfilePage() {
           <Link key={post.id} href={`/posts/${post.id}`}>
             <div className="rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow duration-300">
               {post.mediaType === "video" ? (
-                <video src={post.mediaUrl} controls className="object-cover" />
+                <video src={post.mediaUrl} controls className="hover:border border-gray-700 h-50 w-32 object-contain transition" />
               ) : (
                 <img
                   src={post.mediaUrl}
                   alt={post.caption}
-                  className="object-cover"
+                  className="hover:border border-gray-700 h-55 w-36 md:w-55 md:h-65 object-contain transition"
                 />
               )}
             </div>

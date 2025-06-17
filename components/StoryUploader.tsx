@@ -42,13 +42,13 @@ export default function StoryUploader({ profilePic }: StoryUploaderProps) {
     <div className="flex flex-col items-center mt-4">
       <div
         onClick={openFileDialog}
-        className="w-16 h-16 border-2 border-pink-500 rounded-full overflow-hidden cursor-pointer relative"
+        className="w-20 h-20 md:w-16 md:h-16 border-2 border-pink-500 rounded-full overflow-hidden cursor-pointer relative"
       >
         <Image
           src={profilePic || "/default-avatar.png"}
           alt="profile"
-          width={64}
-          height={64}
+          width={76}
+          height={76}
           className="object-cover"
         />
 

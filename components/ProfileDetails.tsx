@@ -40,7 +40,7 @@ export default function ProfileImage({ userId }: { userId: string }) {
 
   return (
     <>
-      <div className="flex items-center p-8 gap-4">
+      <div className="flex items-center p-2 ">
         <Link href="/profile/upload">
           <img
             src={user.profilePic || "/default-avatar.png"}

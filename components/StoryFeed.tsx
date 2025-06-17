@@ -52,7 +52,7 @@ export default function StoryFeed() {
         {stories.map((story) => (
           <div key={story.id} className="flex flex-col items-center">
             <div
-              className="w-16 h-16 border-2 border-pink-500 rounded-full overflow-hidden cursor-pointer"
+              className="w-20 h-20 md:w-16 md:h-16 border-2 border-pink-500 rounded-full overflow-hidden cursor-pointer"
               onClick={() => setSelectedStory(story)}
             >
               <Image
