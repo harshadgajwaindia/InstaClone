@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { postId: string } }
+  context : { params: Promise<{ postId: string }> }
 ) {
   const session = await getSessionUserId(req);
   if (!session || !session.user)
@@ -17,7 +17,7 @@ export async function POST(
       { status: 400 }
     );
 
-    const ID = await params.postId
+    const ID = (await context.params).postId
 
   try {
     const comment = await prisma.comment.create({

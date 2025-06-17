@@ -42,7 +42,7 @@ export default function CommentSection({ postId }: { postId: string }) {
 
       if (res.ok) {
         const comment = await res.json();
-        setComments([comment, ...comments]); // prepend new comment
+        setComments([comment, ...comments]); 
         setNewComment("");
       } else {
         const error = await res.json();
@@ -57,7 +57,7 @@ export default function CommentSection({ postId }: { postId: string }) {
 
   return (
     <div className="w-full px-4 py-2">
-      {/* Comment List */}
+      
       <div className="max-h-64 overflow-y-auto space-y-4">
         {comments.map((comment) => (
           <div key={comment.id} className="flex items-start space-x-3">
@@ -69,7 +69,7 @@ export default function CommentSection({ postId }: { postId: string }) {
         ))}
       </div>
 
-      {/* Input */}
+      
       <form
         onSubmit={handleSubmit}
         className="mt-4 flex items-center space-x-2"
@@ -86,7 +86,7 @@ export default function CommentSection({ postId }: { postId: string }) {
           disabled={loading || !newComment.trim()}
           className="text-blue-500 font-semibold text-sm hover:opacity-70"
         >
-          Post
+          {loading ? "Posting.." : "Post"}
         </button>
       </form>
     </div>
