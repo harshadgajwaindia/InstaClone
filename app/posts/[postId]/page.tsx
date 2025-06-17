@@ -3,24 +3,22 @@ import DeletePostButton from "@/components/DeletePostButton";
 import LikeButton from "@/components/LikeButton";
 import prisma from "@/lib/prisma";
 
-interface Props {
-  params: {
-    postId: string;
-  };
-}
+export default async function SinglePostPage(props: {
+  params: Promise<{ postId: string }>;
+}) {
+  const { postId } = await props.params;
 
-export default async function SinglePostPage(props: Props) {
-  const { postId } = props.params;
   const post = await prisma.post.findUnique({
     where: { id: postId },
   });
 
-  if (!post)
+  if (!post) {
     return (
       <div className="text-center py-10 text-xl font-semibold">
         Post Not Found
       </div>
     );
+  }
 
   return (
     <div className="h-screen md:flex md:items-center md:justify-center gap-8 px-4 md:px-20 py-6 max-w-6xl mx-auto">
